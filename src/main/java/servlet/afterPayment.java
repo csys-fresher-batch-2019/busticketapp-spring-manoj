@@ -25,11 +25,16 @@ public class afterPayment extends HttpServlet {
 		//out.println("bookingId");
 		System.out.println(bookingId);
 		
-		dao.cashPay(bookingId);
+		try{dao.cashPay(bookingId);
 		response.sendRedirect("lastpage.jsp");
 
 		
 	}
+		 catch (Exception e) {
+		     	// TODO Auto-generated catch block
+		     	e.printStackTrace();
+		     	}
+		    
 
 	
-}
+	}}

@@ -24,12 +24,17 @@ public class afterPaymentCard extends HttpServlet {
 		int bookingId = Integer.parseInt(Booking);
 		//out.println("bookingId");
 		System.out.println(bookingId);
-		
+		try {
 		dao.paymentSuccess(bookingId);
 		response.sendRedirect("lastpage.jsp");
 
 		
 	}
+		 catch (Exception e) {
+		     	// TODO Auto-generated catch block
+		     	e.printStackTrace();
+		     	}
+		    
 
 	
-}
+}}
