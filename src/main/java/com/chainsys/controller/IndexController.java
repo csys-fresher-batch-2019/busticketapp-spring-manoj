@@ -15,6 +15,6 @@ public class IndexController {
 		logger.warn("this is a warn message");
 		logger.error("this is a error message");
 		logger.debug("this is a debug message");
-		return "index.jsp";
+		return "login.jsp";
 	}
 }
