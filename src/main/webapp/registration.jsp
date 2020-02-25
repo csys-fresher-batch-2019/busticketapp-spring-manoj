@@ -25,14 +25,20 @@ color:white;
 <center><h1>Enter your details....</h1>
 <br>
 <form action="registrationservlet">
-     <h2><pre>Enter User Name:<input type="text" name="username" pattern="[A-Za-z]{3,}"required/></pre></h2>
-     <h2><pre>Set Password:<input type="password" name="password" required/></pre></h2>
+     <h2><pre>Enter User Name:<input type="text" name="username" pattern="[A-Za-z]{3,}" title="Enter atleast 3 letters" required/></pre></h2>
+     <h2><pre>Set Password:<input type="password" name="password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Atleat 8 characters with atleast 1 uppercase and atleast 1 lowercase letters and atleast 1 number" /></pre></h2>
      <h2><pre>Enter Gender:<input type="radio" name="Gender" value="M" required>male <input type="radio" name="Gender" value="F" >female <input type="radio" name="Gender" value="Others" >others </pre></h2>
-     <h2><pre>Enter DOB:<input type="date" name="DOB" placeholder="yyyy-mm-dd" required/></pre></h2>
-     <h2><pre>Enter Contact Number:<input type="tel" name="contactnumber" required/></pre></h2>
-     <h2><pre> Enter email ID:<input type="text" name="mailid"required/></pre></h2>
+     <h2><pre>Enter DOB:<input type="date" name="DOB" placeholder="yyyy-mm-dd" min="1900-01-01" max="2020-03-30" required/></pre></h2>
+     <h2><pre>Enter Contact Number:<input type="tel" name="contactnumber" pattern="[6-9]{1}[0-9]{9}" title="contact number must be 10 digits and should start with 6 or above"required/></pre></h2>
+     <h2><pre> Enter email ID:<input type="text" name="mailid" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" title="Example:xyz@gmail.com" required/></pre></h2>
 <br>
 <center><button type="SUBMIT"><h2>REGISTER</h2></button></center>
-
+<br>
+<%
+String result = (String) request.getParameter("res");
+if (result != null) {
+out.println("<center><font color=red>" + result + "</font></center>");
+}
+%>
 </body>
 </html>

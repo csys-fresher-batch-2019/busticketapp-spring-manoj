@@ -36,6 +36,12 @@ color:white;
 	<br>
 	<br>
 	<br>
+	<%
+				int i = 1;
+				if (info.size()>0) {%>
+				<center>
+			<h1>My Bookings</h1>
+		</center>
 	<center>
 		<table border="2">
 			<thead>
@@ -53,10 +59,8 @@ color:white;
 				</tr>
 			</thead>
 			</tbody>
-			<%
-				int i = 1;
-				if (info != null) {
-					for (passengerInfo f : info) {
+			
+					<%for (passengerInfo f : info) {
 			%>
 			<tr>
 				<td><%=i++%></td>
@@ -71,8 +75,22 @@ color:white;
 			</tr>
 			<%
 				}
+				}else {
+				
+			%>
+			
+		
+			<center>
+				<h1>You have not made any Bookings..</h1>
+				<br>
+				<br>
+				<br>
+				
+			<%
 				}
 			%>
 		</table>
+		<br>
+		<center><a href="choice.jsp"><button>Back</button></a></center> 
 </body>
 </html>

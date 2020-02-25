@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import CreateAccount.userAccountDetailsDAO;
 import CreateAccount.userAccountDetailsDAOImpl;
@@ -30,6 +31,9 @@ public class forgetPasswordServlet extends HttpServlet {
 	    {
 	    	 RequestDispatcher dispatcher = request.getRequestDispatcher("resetpassword.jsp");
 	      	dispatcher.forward(request, response);
+	      	HttpSession session = request.getSession();
+	        session.setAttribute("user_id", userId);
+	           	
 	    }
 	    else
 	    {

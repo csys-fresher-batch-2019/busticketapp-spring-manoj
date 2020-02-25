@@ -25,10 +25,7 @@ int bookingid=(Integer)session.getAttribute("BookingId");
 <center><h1>Your ticket is almost confirmed....</h1></center>
 <br>
 <br>
-<center><h2>Your BookingId is....</h2></center>
-<h1><center><%=bookingid %></center></h1>
-<br>
-<br>
+
 <center><h2>Amount to be Paid is</h2></center>
 <%
 int totalPrice=(Integer)session.getAttribute("totalPrice");

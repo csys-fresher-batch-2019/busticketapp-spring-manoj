@@ -32,7 +32,7 @@ placeholder = "Enter cvv" required autofocus/> </h2>
 placeholder = "Enter expiry" required autofocus/></h2>
 
 <h2>Amount to be paid:<input type = "number" name ="totalprice"value ="<%=totalPrice %>"readonly /> </h2>
-<center><button><a href="afterPaymentCard?bookingId=<%=bookingid%>"><h1>To Pay</h1></button></center>
+<center><a href="afterPaymentCard?bookingId=<%=bookingid%>"><button><h1>To Pay</h1></button></center>
 
 </center>x
 </body>

@@ -33,14 +33,16 @@ public class passengerservlet extends HttpServlet {
 		p.setMobileNumber(Long.parseLong(mobilenumber));
 		String NoOfTickets = request.getParameter("noOfTickets");
 		p.setNoOfTickets(Integer.parseInt(NoOfTickets));
-		
 		try {
 		int bookingId=dao.insertPassengerInfo(p);
+		System.out.println(bookingId);
 		int totalprice=dao.totalPrice(bookingId);
+		System.out.println(totalprice);
 		HttpSession session = request.getSession();
 		  session.setAttribute("BookingId", bookingId);
 		  HttpSession session1 = request.getSession();
 		  session1.setAttribute("totalPrice", totalprice);
+		  System.out.println("hello2");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("paymentChoice.jsp");
 		dispatcher.forward(request, response);
 

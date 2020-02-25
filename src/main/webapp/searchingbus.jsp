@@ -53,7 +53,7 @@ for(String a:toLocation){
 </datalist></center></h2>
 
 <h2><center>Enter Journey Date:
-<input type="date" name="journey_date" min="2020-02-03" max="2020-03-31" required></center></h2>
+<input type="date" name="journey_date" min="2020-02-03" max="2020-04-30" required></center></h2>
 </br>
 <center><button>Search</button></center>
 

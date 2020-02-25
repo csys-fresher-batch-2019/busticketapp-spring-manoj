@@ -17,9 +17,12 @@ color:white;
 <br>
 <div class="head"><br><center><h1 class ="name">eBus</h1></center><br></div>
 <body>
+<%
+int userid=(Integer)session.getAttribute("Logged_in_userid");
+%>
 <center><form action="resetPasswordServlet">
-<h2><pre>Enter UserId:<input type="number" name="userid" placeholder="number" required/></pre></h2>
-<h2><pre>Enter password:<input type="password" name="password" required /></pre></h2>
+<h2><center>User Id:<input type="number" name="userid" value="<%=userid %>"readonly/></center></h2>
+<h2><pre>Enter password:<input type="password" name="password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Atleat 8 characters with atleast 1 uppercase and atleast 1 lowercase letters and atleast 1 number"required /></pre></h2>
 <h2><pre>Enter password Again:<input type="password" name="password2" required /></pre></h2>
 <center><button>SUBMIT</button></center>
 <%

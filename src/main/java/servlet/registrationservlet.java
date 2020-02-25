@@ -33,7 +33,11 @@ public class registrationservlet extends HttpServlet {
 		p.setEmailId(request.getParameter("mailid"));
 		
 		PrintWriter out=response.getWriter();
+		boolean result=false;
+		
 		try {
+			result=dao.checkEmailId(p.getEmailId());
+		if(result==true)	{
 		
 		int userId=dao.addUser(p);
 		//out.println(userId);
@@ -44,7 +48,16 @@ public class registrationservlet extends HttpServlet {
 		     	
 		RequestDispatcher dispatcher = request.getRequestDispatcher("userId.jsp");
 		dispatcher.forward(request, response);
+		}
+		else {
+     		String result1 = "Account is already existing using given Email ID... try another Email ID";
+     		response.sendRedirect("registration.jsp?res=" + result1);
+     		
 
+     	
+     	
+     	
+     	}
 		} catch (Exception e){
 		// TODO Auto-generated catch block
 		e.printStackTrace();
