@@ -1,7 +1,7 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,7 +22,7 @@ public class loginServlet extends HttpServlet {
       String userid=request.getParameter("userid");
       int userId=Integer.parseInt(userid);
       boolean result=false;
-     	PrintWriter out=response.getWriter();
+     	
      	String password = request.getParameter("password");
      	
      	try {
