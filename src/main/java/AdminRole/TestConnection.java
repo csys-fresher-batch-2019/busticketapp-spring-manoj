@@ -20,8 +20,8 @@ public class TestConnection {
 			e.printStackTrace();
 			throw new DbException(infoMessages.CONNECTION);
 		}
-		//Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@13.235.147.120:1521:XE", "manoj", "manoj");
-		Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "oracle");
+		Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@13.235.147.120:1521:XE", "manoj", "manoj");
+		//Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "oracle");
 
 		return connection;
 

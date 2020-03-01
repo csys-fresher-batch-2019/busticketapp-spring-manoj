@@ -168,7 +168,7 @@ margin-left: 4px;
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="text" class="form-control"name="userid" placeholder="userId(number)" required>
+						<input type="number" class="form-control"name="userid" placeholder="userId(number)" required>
 						
 					</div>
 					<div class="input-group form-group">
