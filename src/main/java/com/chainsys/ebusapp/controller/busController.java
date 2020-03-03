@@ -3,6 +3,7 @@ package com.chainsys.ebusapp.controller;
 import java.util.ArrayList;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,4 +67,36 @@ public class busController {
 		return a;
 
 	}
-}
+	
+	@PostMapping("/updateBusTimings")
+	public void updateBusTiming(@RequestParam("bus_id") Integer bid,@RequestParam("travelling_time") String travelTime) {
+		busDetails b = new busDetails();
+		//busDetailsDAO a = new busDetailsDAOImpl();
+		b.setBusId(bid);
+		b.setTravellingTime(travelTime);
+		try {
+	a.updateBusTiming(b);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	@DeleteMapping("/removeBus")
+	public void removeBus(@RequestParam("bus_id") Integer bid) {
+		
+		try {
+			a.removeBus(bid);
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+		
+		
+	}
+	}
+	
+	
+
