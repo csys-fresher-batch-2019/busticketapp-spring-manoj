@@ -1,7 +1,7 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="PassengerInfo.passengerInfoDAOImpl"%>
-<%@page import="PassengerInfo.passengerInfoDAO"%>
-<%@page import="PassengerInfo.passengerInfo"%>
+<%@page import="com.chainsys.ebus.dao.impl.passengerInfoDAOImpl"%>
+<%@page import="com.chainsys.ebus.dao.passengerInfoDAO"%>
+<%@page import="com.chainsys.ebus.model.passengerInfo"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 	 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -24,18 +24,13 @@ color:white;
 <body >
 
 	<%
-		String userid = request.getParameter("UserId");
-		int Userid = Integer.parseInt(userid);
-		passengerInfoDAO dao = new passengerInfoDAOImpl();
-		ArrayList<passengerInfo> info = dao.MyBookings(Userid);
+	ArrayList<passengerInfo> info = (ArrayList) request.getAttribute("info");
 	%>
 	<br>
 	<br>
 	<br>
 	<br>
-	<br>
-	<br>
-	<br>
+	
 	<%
 				int i = 1;
 				if (info.size()>0) {%>
@@ -59,23 +54,25 @@ color:white;
 				</tr>
 			</thead>
 			</tbody>
+			<tbody>
+				<c:set var="info" value="<%=info%>" ></c:set>
+				<c:forEach items="${info}" var="l" varStatus="i">				
+				<tr>
+					<td>${i.index+1}</td>
+					<td>${l.bookingId}</td>
+					<td>${l.busId}</td>
+					<td>${l.passengerName}</td>
+					<td>${l.age}</td>
+					<td>${l.gender}</td>
+					<td>${l.mobileNumber}</td>
+					<td>${l.noOfTickets}</td>
+					
+				</tr>
+				</c:forEach>
+				</tbody>
 			
-					<%for (passengerInfo f : info) {
-			%>
-			<tr>
-				<td><%=i++%></td>
-				<td><%=f.getBookingId()%></td>
-		
-				<td><%=f.getBusId()%></td>
-				<td><%=f.getPassengerName()%></td>
-				<td><%=f.getAge()%></td>
-				<td><%=f.getGender()%></td>
-				<td><%=f.getMobileNumber()%></td>
-				<td><%=f.getNoOfTickets()%></td>
-			</tr>
-			<%
-				}
-				}else {
+				
+			<%	}else {
 				
 			%>
 			

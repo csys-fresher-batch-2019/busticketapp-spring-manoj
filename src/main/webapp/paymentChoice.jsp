@@ -1,5 +1,5 @@
-<%@page import="PassengerInfo.passengerInfoDAOImpl"%>
-<%@page import="PassengerInfo.passengerInfoDAO"%>
+<%@page import="com.chainsys.ebus.dao.impl.passengerInfoDAOImpl"%>
+<%@page import="com.chainsys.ebus.dao.passengerInfoDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>

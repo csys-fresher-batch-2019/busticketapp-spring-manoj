@@ -28,9 +28,9 @@ int userid=(Integer)session.getAttribute("Logged_in_userid");
 <br>
 <br>
 
-<center><a href="searchingbus.jsp"><button><h1>Search Bus</h1></button></a></center> 
+<center><a href="fromLocation"><button><h1>Search Bus</h1></button></a></center> 
 <center><h1>OR</h1></center>
-<center><a href="MyTickets.jsp?UserId=<%=userid%>"><h1><button><h1>My Tickets</h1></button></a></center> 
+<center><a href="mybookingsServlet?UserId=<%=userid%>"><h1><button><h1>My Tickets</h1></button></a></center> 
 <br>
 
 </body>

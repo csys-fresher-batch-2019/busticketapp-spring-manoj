@@ -1,5 +1,5 @@
-<%@page import="AvailableSeats.availableSeatsDAOImpl"%>
-<%@page import="AvailableSeats.availableSeatsDAO"%>
+<%@page import="com.chainsys.ebus.dao.impl.availableSeatsDAOImpl"%>
+<%@page import="com.chainsys.ebus.dao.availableSeatsDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -28,9 +28,9 @@ color:white;
 <%
 String Busid=request.getParameter("busId");
 int busid=Integer.parseInt(Busid);
-availableSeatsDAO dao=new availableSeatsDAOImpl();
-int availableseats=dao.seatavail(busid);%>
-<center><h1><%out.println(availableseats);%></h1></center>
+int seats=  (Integer) request.getAttribute("seats");
+%>
+<center><h1><%out.println(seats);%></h1></center>
 <center><button><a href="passengerinfo.jsp?busId=<%=busid%>"><h1>Click here to Book</h1></button></center>
 
 </body>

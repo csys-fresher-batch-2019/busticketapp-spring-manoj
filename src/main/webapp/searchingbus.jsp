@@ -1,9 +1,9 @@
 <%@page import="java.util.List"%>
-<%@page import="BusDetails.busDetailsDAOImpl"%>
-<%@page import="BusDetails.busDetailsDAO"%>
+<%@page import="com.chainsys.ebus.dao.impl.busDetailsDAOImpl"%>
+<%@page import="com.chainsys.ebus.dao.busDetailsDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,53 +11,76 @@
 <title>ebus</title>
 </head>
 <style>
-div.head{
-background-color:rgb(127, 140, 141);
+div.head {
+	background-color: rgb(127, 140, 141);
 }
-.name{
-color:white;
+
+.name {
+	color: white;
 }
 </style>
 <br>
-<div class="head"><br><center><h1 class ="name">eBus</h1></center><br></div>
+<div class="head">
+	<br>
+	<center>
+		<h1 class="name">eBus</h1>
+	</center>
+	<br>
+</div>
 <body>
+	<%
+	List<String> fromLocation =(List<String>)request.getAttribute("fromLocation");
+	List<String> toLocation =(List<String>)request.getAttribute("toLocation");
+	%>
 
-<form  action="ListOfBuses.jsp">
-<center><h1>Search buses here....</h1>
+	<form action="searchingbuses">
+		<center>
+			<h1>Search buses here....</h1>
 
-</br>
-<%
-busDetailsDAO dao= new busDetailsDAOImpl();
- List<String> fromLocation=dao.getFromLocation();
- List<String> toLocation=dao.getToLocation();
- 
-%>
-<h2><center>Select From Location:
-<input name=from_location list="from_location_list" required>
-<datalist id="from_location_list">
-<%
-for(String a:fromLocation){
-%>
-<option value="<%=a %>"><%=a %></option>
-<%} %>
-</datalist></center></h2>
+			</br>
 
-<h2><center>Select To Location:
-<input name=to_location list="To_location_list" required>
-<datalist id="To_location_list">
-<%
-for(String a:toLocation){
-%>
-<option value="<%=a %>"><%=a %></option>
-<%} %>
-</datalist></center></h2>
+			<h2>
+				<center>
+					Select From Location: <input name=from_location
+						list="from_location_list" required>
+					<datalist id="from_location_list">
+						<%
+							for (String a : fromLocation) {
+						%>
+						<option value="<%=a%>"><%=a%></option>
+						<%
+							}
+						%>
+					</datalist>
+				</center>
+			</h2>
 
-<h2><center>Enter Journey Date:
-<input type="date" name="journey_date" min="2020-02-03" max="2020-04-30" required></center></h2>
-</br>
-<center><button>Search</button></center>
+			<h2>
+				<center>
+					Select To Location: <input name=to_location list="To_location_list"
+						required>
+					<datalist id="To_location_list">
+						<%
+							for (String a : toLocation) {
+						%>
+						<option value="<%=a%>"><%=a%></option>
+						<%
+							}
+						%>
+					</datalist>
+				</center>
+			</h2>
 
-
-</form>
+			<h2>
+				<center>
+					Enter Journey Date: <input type="date" name="journey_date"
+						min="2020-02-03" max="2020-04-30" required>
+				</center>
+			</h2>
+			</br>
+			<center>
+				<button>Search</button>
+			</center>
+	</form>
 </body>
 </html>
