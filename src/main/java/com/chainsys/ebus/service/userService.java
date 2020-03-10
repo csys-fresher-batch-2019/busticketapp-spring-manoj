@@ -112,9 +112,9 @@ public class userService {
 			f.paymentFailure(bookingId);
 		}
 		 
-		public boolean cashPay(int bookingId) throws Exception{
-			 boolean bo2=f.cashPay(bookingId);
-				return bo2;
+		public void cashPay(int bookingId) throws Exception{
+			  f.cashPay(bookingId);
+				
 			
 		}
 		

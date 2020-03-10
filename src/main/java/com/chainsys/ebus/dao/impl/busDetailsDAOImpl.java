@@ -15,7 +15,12 @@ import com.chainsys.ebus.Exception.infoMessages;
 import com.chainsys.ebus.dao.busDetailsDAO;
 import com.chainsys.ebus.model.busDetails;
 
+
+
+
+
 public class busDetailsDAOImpl implements busDetailsDAO {
+	int busId=0;
 	public void addBus(busDetails a) throws Exception {
 		try (Connection con = TestConnection.connection();) {
 			String sql = "insert into bus_details (bus_id,bus_name,from_location,to_location,journey_date,ticket_price,travelling_time) values (?,?,?,?,?,?,?)";
@@ -29,18 +34,12 @@ public class busDetailsDAOImpl implements busDetailsDAO {
 				pst.setInt(6, a.getTicketPrice());
 				pst.setString(7, a.getTravellingTime());
 				pst.executeUpdate();
-				int busId = a.getBusId();
-
-				String sql1 = "insert into seat_availability (bus_id,maximum_seats,available_seats) values(?,?,?)";
-				try (PreparedStatement pst1 = con.prepareStatement(sql1);) {
-					pst1.setInt(1, busId);
-					pst1.setInt(2, a.getMaximumSeats());
-					pst1.setInt(3, a.getAvailableSeats());
-					pst1.executeUpdate();
+				busId = a.getBusId();
+				addBusSeats(a);
 
 					System.out.println("Bus Details are added successfully\n");
 
-				}
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -53,6 +52,33 @@ public class busDetailsDAOImpl implements busDetailsDAO {
 		}
 
 	}
+	
+	public void addBusSeats(busDetails a) throws Exception {
+		try (Connection con = TestConnection.connection();) {
+			
+			String sql1 = "insert into seat_availability (bus_id,maximum_seats,available_seats) values(?,?,?)";
+			try (PreparedStatement pst1 = con.prepareStatement(sql1);) {
+				pst1.setInt(1,busId);
+				pst1.setInt(2, a.getMaximumSeats());
+				pst1.setInt(3, a.getAvailableSeats());
+				pst1.executeUpdate();
+
+				System.out.println("Bus Details are added successfully\n");
+
+			
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+		throw new DbException(infoMessages.ADDBUS);
+	} catch (Exception e) {
+
+		e.printStackTrace();
+		throw new DbException(infoMessages.CONNECTION);
+
+	}
+			
+		
+		}
 
 	public void removeBus(int busId) throws Exception {
 		try (Connection con = TestConnection.connection();) {
@@ -61,14 +87,8 @@ public class busDetailsDAOImpl implements busDetailsDAO {
 			try (PreparedStatement pst = con.prepareStatement(sql);) {
 				pst.setInt(1, busId);
 				pst.executeUpdate();
-
-				String sql1 = "delete from seat_availability where bus_id=?";
-				try (PreparedStatement pst1 = con.prepareStatement(sql1);) {
-					pst1.setInt(1, busId);
-					pst1.executeUpdate();
-
-					System.out.println("Bus Details are deleted Successfully");
-				}
+				removeBusSeats(busId);
+				
 			}
 		} catch (SQLException e) {
 
@@ -83,6 +103,34 @@ public class busDetailsDAOImpl implements busDetailsDAO {
 		}
 
 	}
+	
+	public void removeBusSeats(int busId) throws Exception {
+		try (Connection con = TestConnection.connection();) {
+			
+			String sql1 = "delete from seat_availability where bus_id=?";
+			try (PreparedStatement pst1 = con.prepareStatement(sql1);) {
+				pst1.setInt(1, busId);
+				pst1.executeUpdate();
+
+				System.out.println("Bus Details are deleted Successfully");
+			}
+		
+	} catch (SQLException e) {
+
+		e.printStackTrace();
+		throw new DbException(infoMessages.REMOVEBUS);
+
+	} catch (Exception e) {
+
+		e.printStackTrace();
+		throw new DbException(infoMessages.CONNECTION);
+
+	}
+
+		}
+		
+		
+
 
 	public void updateBusTiming(busDetails a) throws Exception {
 		try (Connection con = TestConnection.connection();) {
