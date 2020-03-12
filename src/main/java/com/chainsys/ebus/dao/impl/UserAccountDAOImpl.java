@@ -5,14 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.chainsys.ebus.dao.UserAccountDetailsDAO;
+import com.chainsys.ebus.dao.UserAccountDAO;
 import com.chainsys.ebus.exception.DbException;
 import com.chainsys.ebus.exception.InfoMessages;
-import com.chainsys.ebus.model.UserAccountDetails;
+import com.chainsys.ebus.model.UserAccount;
 import com.chainsys.ebus.util.ConnectionUtil;
 
-public class UserAccountDetailsDAOImpl implements UserAccountDetailsDAO {
-	public int addUser(UserAccountDetails a) throws DbException,SQLException {
+public class UserAccountDAOImpl implements UserAccountDAO {
+	public int addUser(UserAccount a) throws DbException,SQLException {
 
 		String sql = "insert into user_account(user_name,user_id,user_password,gender,dob,contact_number,email_id) values(?,user_id.nextval,?,?,?,?,?)";
 		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst = con.prepareStatement(sql);) {
@@ -41,10 +41,10 @@ public class UserAccountDetailsDAOImpl implements UserAccountDetailsDAO {
 	private int showUserId(String emailId) throws DbException,SQLException {
 		int userid = 0;
 
-		String sql1 = "select user_id from user_account where email_id=?";
-		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst1 = con.prepareStatement(sql1);) {
-			pst1.setString(1, emailId);
-			try (ResultSet row = pst1.executeQuery();) {
+		String sql = "select user_id from user_account where email_id=?";
+		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst = con.prepareStatement(sql);) {
+			pst.setString(1, emailId);
+			try (ResultSet row = pst.executeQuery();) {
 				if (row.next()) {
 					userid = row.getInt("user_id");
 
@@ -63,13 +63,13 @@ public class UserAccountDetailsDAOImpl implements UserAccountDetailsDAO {
 
 	public boolean forgetPassword(int userid, String password) throws DbException,SQLException {
 
-		String sql2 = "update user_account set user_password=? where user_id=?";
-		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst2 = con.prepareStatement(sql2);) {
-			pst2.setString(1, password);
-			pst2.setInt(2, userid);
-			int rows = pst2.executeUpdate();
+		String sql = "update user_account set user_password=? where user_id=?";
+		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst = con.prepareStatement(sql);) {
+			pst.setString(1, password);
+			pst.setInt(2, userid);
+			int rows = pst.executeUpdate();
 			if (rows > 0) {
-				con.close();
+				
 				return true;
 			} else {
 
@@ -86,8 +86,8 @@ public class UserAccountDetailsDAOImpl implements UserAccountDetailsDAO {
 
 	public boolean validateEmailId(String emailId) throws DbException,SQLException {
 
-		String email1 = "select email_id from user_account where email_id=?";
-		try (Connection con = ConnectionUtil.connection(); PreparedStatement smt = con.prepareStatement(email1);) {
+		String emailid = "select email_id from user_account where email_id=?";
+		try (Connection con = ConnectionUtil.connection(); PreparedStatement smt = con.prepareStatement(emailid);) {
 
 			smt.setString(1, emailId);
 			try (ResultSet row = smt.executeQuery();) {
@@ -115,8 +115,8 @@ public class UserAccountDetailsDAOImpl implements UserAccountDetailsDAO {
 
 	public boolean validateEmailIdWithUserId(String emailId, int userId) throws DbException,SQLException {
 
-		String email1 = "select email_id from user_account where user_id=?";
-		try (Connection con = ConnectionUtil.connection(); PreparedStatement smt = con.prepareStatement(email1);) {
+		String emailid = "select email_id from user_account where user_id=?";
+		try (Connection con = ConnectionUtil.connection(); PreparedStatement smt = con.prepareStatement(emailid);) {
 			smt.setInt(1, userId);
 			try (ResultSet row = smt.executeQuery();) {
 				String email = "";
@@ -133,7 +133,7 @@ public class UserAccountDetailsDAOImpl implements UserAccountDetailsDAO {
 
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			throw new DbException(InfoMessages.VALIDATEEMAILWITHUSERID,e);
 
@@ -143,10 +143,10 @@ public class UserAccountDetailsDAOImpl implements UserAccountDetailsDAO {
 
 	public boolean validateUserId(int userId) throws DbException,SQLException {
 
-		String sql3 = "select user_id from user_account where user_id = ?";
-		try (Connection con = ConnectionUtil.connection(); PreparedStatement smt2 = con.prepareStatement(sql3);) {
-			smt2.setInt(1, userId);
-			try (ResultSet row2 = smt2.executeQuery();) {
+		String sql = "select user_id from user_account where user_id = ?";
+		try (Connection con = ConnectionUtil.connection(); PreparedStatement smt = con.prepareStatement(sql);) {
+			smt.setInt(1, userId);
+			try (ResultSet row2 = smt.executeQuery();) {
 				int userid = 0;
 				if (row2.next()) {
 					userid = row2.getInt("user_id");
@@ -171,10 +171,10 @@ public class UserAccountDetailsDAOImpl implements UserAccountDetailsDAO {
 
 	public boolean validateLogin(int userId, String password) throws DbException,SQLException {
 
-		String sql4 = "select user_password from user_account where user_id = ?";
-		try (Connection con = ConnectionUtil.connection(); PreparedStatement smt3 = con.prepareStatement(sql4);) {
-			smt3.setInt(1, userId);
-			try (ResultSet row3 = smt3.executeQuery();) {
+		String sql = "select user_password from user_account where user_id = ?";
+		try (Connection con = ConnectionUtil.connection(); PreparedStatement smt = con.prepareStatement(sql);) {
+			smt.setInt(1, userId);
+			try (ResultSet row3 = smt.executeQuery();) {
 				if (row3.next())
 					if (password.equals(row3.getString("user_password"))) {
 						return true;

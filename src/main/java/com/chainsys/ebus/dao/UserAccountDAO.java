@@ -3,10 +3,10 @@ package com.chainsys.ebus.dao;
 import java.sql.SQLException;
 
 import com.chainsys.ebus.exception.DbException;
-import com.chainsys.ebus.model.UserAccountDetails;
+import com.chainsys.ebus.model.UserAccount;
 
-public interface UserAccountDetailsDAO {
-	public  int addUser (UserAccountDetails a) throws DbException,SQLException ;
+public interface UserAccountDAO {
+	public  int addUser (UserAccount a) throws DbException,SQLException ;
 	public  boolean forgetPassword(int userid,String password) throws DbException,SQLException ;
     public boolean validateEmailId(String emailId) throws DbException,SQLException ;
     public boolean validateUserId(int userId) throws DbException,SQLException ;

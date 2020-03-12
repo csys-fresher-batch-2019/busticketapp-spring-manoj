@@ -1,6 +1,6 @@
 package com.chainsys.ebus.model;
 
-public class UserAccountDetails {
+public class UserAccount {
 	private String userName;
 	private int userId;
 	private String password;

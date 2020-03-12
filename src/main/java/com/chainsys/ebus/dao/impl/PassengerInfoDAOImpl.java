@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.chainsys.ebus.dao.PassengerInfoDAO;
 import com.chainsys.ebus.exception.DbException;
@@ -49,8 +50,8 @@ public class PassengerInfoDAOImpl implements PassengerInfoDAO {
 
 	private int getBookingId(int userId) throws DbException,SQLException {
 
-		String sql1 = "select max(booking_id) as id from passenger_details where user_id=?";
-		try (Connection con = ConnectionUtil.connection(); PreparedStatement stmt = con.prepareStatement(sql1);) {
+		String sql = "select max(booking_id) as id from passenger_details where user_id=?";
+		try (Connection con = ConnectionUtil.connection(); PreparedStatement stmt = con.prepareStatement(sql);) {
 			stmt.setInt(1, userId);
 			try (ResultSet rs = stmt.executeQuery();) {
 				rs.next();
@@ -72,12 +73,12 @@ public class PassengerInfoDAOImpl implements PassengerInfoDAO {
 	private void getTotalPrice(int busId) throws DbException,SQLException {
 
 		int price = 0;
-		String sql3 = "select ticket_price from bus_details where bus_id=?";
-		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst2 = con.prepareStatement(sql3);) {
-			pst2.setInt(1, busId);
-			try (ResultSet rs1 = pst2.executeQuery();) {
-				rs1.next();
-				price = rs1.getInt("ticket_price");
+		String sql = "select ticket_price from bus_details where bus_id=?";
+		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst = con.prepareStatement(sql);) {
+			pst.setInt(1, busId);
+			try (ResultSet rs = pst.executeQuery();) {
+				rs.next();
+				price = rs.getInt("ticket_price");
 				totalPrice = price * numOfTickets;
 				updatePaymentInfo(userId, busId, bookingId, totalPrice);
 
@@ -94,14 +95,14 @@ public class PassengerInfoDAOImpl implements PassengerInfoDAO {
 
 	private void updatePaymentInfo(int userId, int busId, int bId, int totalPrice) throws DbException,SQLException {
 
-		String sql4 = "insert into payment_status(user_id,bus_id,booking_id,total_price)values(?,?,?,?)";
+		String sql = "insert into payment_status(user_id,bus_id,booking_id,total_price)values(?,?,?,?)";
 
-		try (Connection con = ConnectionUtil.connection(); PreparedStatement stmt2 = con.prepareStatement(sql4);) {
-			stmt2.setInt(1, userId);
-			stmt2.setInt(2, busId);
-			stmt2.setInt(3, bId);
-			stmt2.setInt(4, totalPrice);
-			stmt2.executeUpdate();
+		try (Connection con = ConnectionUtil.connection(); PreparedStatement stmt = con.prepareStatement(sql);) {
+			stmt.setInt(1, userId);
+			stmt.setInt(2, busId);
+			stmt.setInt(3, bId);
+			stmt.setInt(4, totalPrice);
+			stmt.executeUpdate();
 
 		} catch (SQLException e) {
 
@@ -112,13 +113,13 @@ public class PassengerInfoDAOImpl implements PassengerInfoDAO {
 
 	}
 
-	public ArrayList<PassengerInfo> bookingDetails(int bookingId) throws DbException,SQLException {
+	public List<PassengerInfo> bookingDetails(int bookingId) throws DbException,SQLException {
 
-		String sql5 = "select *from passenger_details where booking_id=?";
-		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst5 = con.prepareStatement(sql5);) {
-			pst5.setInt(1, bookingId);
-			try (ResultSet rows = pst5.executeQuery();) {
-				ArrayList<PassengerInfo> details = new ArrayList<PassengerInfo>();
+		String sql = "select *from passenger_details where booking_id=?";
+		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst = con.prepareStatement(sql);) {
+			pst.setInt(1, bookingId);
+			try (ResultSet rows = pst.executeQuery();) {
+				List<PassengerInfo> details = new ArrayList<>();
 				while (rows.next()) {
 
 					PassengerInfo p = new PassengerInfo();
@@ -148,10 +149,10 @@ public class PassengerInfoDAOImpl implements PassengerInfoDAO {
 
 	public void cancelBooking(int bookingId) throws DbException,SQLException {
 
-		String sql6 = "update passenger_details set booking_status= 'cancelled' where booking_id=?";
-		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst6 = con.prepareStatement(sql6);) {
-			pst6.setInt(1, bookingId);
-			pst6.executeUpdate();
+		String sql = "update passenger_details set booking_status= 'cancelled' where booking_id=?";
+		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst = con.prepareStatement(sql);) {
+			pst.setInt(1, bookingId);
+			pst.executeUpdate();
 
 			updateSeatForCancel(bookingId);
 
@@ -166,11 +167,11 @@ public class PassengerInfoDAOImpl implements PassengerInfoDAO {
 
 	private void updateSeatForCancel(int bookingId) throws DbException,SQLException {
 
-		String sql7 = "update seat_availability set available_seats=available_seats+(select no_of_tickets from passenger_details where booking_id=?) where bus_id=(select bus_id from passenger_details where booking_id=?)";
-		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst7 = con.prepareStatement(sql7);) {
-			pst7.setInt(1, bookingId);
-			pst7.setInt(2, bookingId);
-			pst7.executeUpdate();
+		String sql = "update seat_availability set available_seats=available_seats+(select no_of_tickets from passenger_details where booking_id=?) where bus_id=(select bus_id from passenger_details where booking_id=?)";
+		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst = con.prepareStatement(sql);) {
+			pst.setInt(1, bookingId);
+			pst.setInt(2, bookingId);
+			pst.executeUpdate();
 			updatePaymentStatusForCancel(bookingId);
 
 		} catch (SQLException e) {
@@ -183,10 +184,10 @@ public class PassengerInfoDAOImpl implements PassengerInfoDAO {
 
 	private void updatePaymentStatusForCancel(int bookingId) throws DbException,SQLException {
 
-		String sql8 = "update payment_status set paid_status= 'cancelled' where booking_id=?";
-		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst8 = con.prepareStatement(sql8);) {
-			pst8.setInt(1, bookingId);
-			pst8.executeUpdate();
+		String sql = "update payment_status set paid_status= 'cancelled' where booking_id=?";
+		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst = con.prepareStatement(sql);) {
+			pst.setInt(1, bookingId);
+			pst.executeUpdate();
 
 		} catch (SQLException e) {
 
@@ -228,17 +229,15 @@ public class PassengerInfoDAOImpl implements PassengerInfoDAO {
 	public boolean validateBusId(int busId) throws DbException,SQLException {
 
 		String bus = "select bus_id from bus_details where bus_id = ?";
-		try (Connection con = ConnectionUtil.connection(); PreparedStatement smt9 = con.prepareStatement(bus);) {
-			smt9.setInt(1, busId);
-			try (ResultSet row9 = smt9.executeQuery();) {
+		try (Connection con = ConnectionUtil.connection(); PreparedStatement smt = con.prepareStatement(bus);) {
+			smt.setInt(1, busId);
+			try (ResultSet row = smt.executeQuery();) {
 				int busid = 0;
-				if (row9.next()) {
-					busid = row9.getInt("bus_id");
-				}
-				if (busId == busid) {
-
+				if (row.next()) {
+					 busid = row.getInt("bus_id");
 					return true;
-				} else {
+				}
+				 else {
 
 					return false;
 				}
@@ -275,13 +274,13 @@ public class PassengerInfoDAOImpl implements PassengerInfoDAO {
 	}
 
 	@Override
-	public ArrayList<PassengerInfo> myBookings(int userId) throws DbException,SQLException {
+	public List<PassengerInfo> myBookings(int userId) throws DbException,SQLException {
 
-		String sql5 = "select *from passenger_details where user_id=? and booking_status='booked'";
-		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst5 = con.prepareStatement(sql5);) {
-			pst5.setInt(1, userId);
-			try (ResultSet rows = pst5.executeQuery();) {
-				ArrayList<PassengerInfo> details = new ArrayList<PassengerInfo>();
+		String sql = "select *from passenger_details where user_id=? and booking_status='booked'";
+		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst = con.prepareStatement(sql);) {
+			pst.setInt(1, userId);
+			try (ResultSet rows = pst.executeQuery();) {
+				List<PassengerInfo> details = new ArrayList<>();
 				while (rows.next()) {
 
 					PassengerInfo p = new PassengerInfo();

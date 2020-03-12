@@ -1,6 +1,6 @@
 package com.chainsys.ebus.model;
 
-public class BusDetails {
+public class Bus {
 	private int busId;
 	private String busName;
 	private String fromLocation;

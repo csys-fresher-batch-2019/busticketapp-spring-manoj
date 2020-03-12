@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.chainsys.ebus.dao.FindBusDAO;
 import com.chainsys.ebus.exception.DbException;
@@ -15,7 +16,7 @@ import com.chainsys.ebus.util.ConnectionUtil;
 public class FindBusDAOImpl implements FindBusDAO {
 	int busId = 0;
 
-	public ArrayList<FindBus> searchBus(String fromLocation, String toLocation, String journeyDate) throws DbException,SQLException{
+	public List<FindBus> searchBus(String fromLocation, String toLocation, String journeyDate) throws DbException,SQLException{
 
 		String sql = "select bus_name,bus_id,ticket_price,travelling_time from bus_details where from_location= ? and to_location= ? and journey_date= ?";
 		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst = con.prepareStatement(sql);) {
@@ -24,7 +25,7 @@ public class FindBusDAOImpl implements FindBusDAO {
 			java.sql.Date journeyDate1 = java.sql.Date.valueOf(journeyDate);
 			pst.setDate(3, journeyDate1);
 			try (ResultSet rows = pst.executeQuery();) {
-				ArrayList<FindBus> buses1 = new ArrayList<FindBus>();
+				List<FindBus> buses1 = new ArrayList<>();
 				while (rows.next()) {
 
 					FindBus f = new FindBus();
@@ -40,10 +41,11 @@ public class FindBusDAOImpl implements FindBusDAO {
 					if (seats > 0) {
 						buses1.add(f);
 					}
-
+					
+					
 				}
 				return buses1;
-
+                   
 			}
 		} catch (SQLException e) {
 
@@ -51,6 +53,8 @@ public class FindBusDAOImpl implements FindBusDAO {
 			throw new DbException(InfoMessages.FINDBUS,e);
 
 		}
+		//return null;
+		
 
 	}
 

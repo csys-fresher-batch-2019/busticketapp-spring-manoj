@@ -30,10 +30,10 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 	private void updateBookingStatus(int bookingId) throws DbException,SQLException {
 
-		String sql1 = "update passenger_details set booking_status='booked' where booking_id=?";
-		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst1 = con.prepareStatement(sql1);) {
-			pst1.setInt(1, bookingId);
-			pst1.executeUpdate();
+		String sql = "update passenger_details set booking_status='booked' where booking_id=?";
+		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst = con.prepareStatement(sql);) {
+			pst.setInt(1, bookingId);
+			pst.executeUpdate();
 			updateSeatAvailability(bookingId);
 
 		} catch (SQLException e) {
@@ -46,11 +46,11 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 	private void updateSeatAvailability(int bookingId) throws DbException,SQLException {
 
-		String sql2 = "update seat_availability set available_seats=available_seats -(select no_of_tickets from passenger_details where booking_id= ?)where bus_id=(select bus_id from passenger_details where booking_id=?)  ";
-		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst2 = con.prepareStatement(sql2);) {
-			pst2.setInt(1, bookingId);
-			pst2.setInt(2, bookingId);
-			pst2.executeUpdate();
+		String sql = "update seat_availability set available_seats=available_seats -(select no_of_tickets from passenger_details where booking_id= ?)where bus_id=(select bus_id from passenger_details where booking_id=?)  ";
+		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst = con.prepareStatement(sql);) {
+			pst.setInt(1, bookingId);
+			pst.setInt(2, bookingId);
+			pst.executeUpdate();
 
 		} catch (SQLException e) {
 
@@ -81,10 +81,10 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 	private void updateFailureBookingStatus(int bookingId) throws DbException,SQLException {
 
-		String sql2 = "update passenger_details set booking_status='cancelled' where booking_id=?";
-		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst1 = con.prepareStatement(sql2);) {
-			pst1.setInt(1, bookingId);
-			pst1.executeUpdate();
+		String sql = "update passenger_details set booking_status='cancelled' where booking_id=?";
+		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst = con.prepareStatement(sql);) {
+			pst.setInt(1, bookingId);
+			pst.executeUpdate();
 
 		} catch (SQLException e) {
 
@@ -117,10 +117,10 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 	private void updateBookingStatusCash(int bookingId) throws DbException,SQLException {
 
-		String sql1 = "update passenger_details set booking_status='booked' where booking_id=?";
-		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst1 = con.prepareStatement(sql1);) {
-			pst1.setInt(1, bookingId);
-			pst1.executeUpdate();
+		String sql = "update passenger_details set booking_status='booked' where booking_id=?";
+		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst = con.prepareStatement(sql);) {
+			pst.setInt(1, bookingId);
+			pst.executeUpdate();
 
 			updateSeatAvailabilityCash(bookingId);
 
@@ -135,11 +135,11 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 	private void updateSeatAvailabilityCash(int bookingId) throws DbException,SQLException {
 
-		String sql2 = "update seat_availability set available_seats=available_seats -(select no_of_tickets from passenger_details where booking_id= ?)where bus_id=(select bus_id from passenger_details where booking_id=?)  ";
-		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst2 = con.prepareStatement(sql2);) {
-			pst2.setInt(1, bookingId);
-			pst2.setInt(2, bookingId);
-			pst2.executeUpdate();
+		String sql = "update seat_availability set available_seats=available_seats -(select no_of_tickets from passenger_details where booking_id= ?)where bus_id=(select bus_id from passenger_details where booking_id=?)  ";
+		try (Connection con = ConnectionUtil.connection(); PreparedStatement pst= con.prepareStatement(sql);) {
+			pst.setInt(1, bookingId);
+			pst.setInt(2, bookingId);
+			pst.executeUpdate();
 
 		}
 

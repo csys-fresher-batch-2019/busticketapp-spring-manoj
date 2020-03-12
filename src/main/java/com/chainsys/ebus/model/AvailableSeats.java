@@ -3,7 +3,7 @@ package com.chainsys.ebus.model;
 public class AvailableSeats {
 	private int busId;
 	private int availableSeats;
-	private int maxseats;
+	private int maximumSeats;
 
 	public int getBusId() {
 		return busId;
@@ -22,11 +22,11 @@ public class AvailableSeats {
 	}
 
 	public int getMaxseats() {
-		return maxseats;
+		return maximumSeats;
 	}
 
 	public void setMaxseats(int maxseats) {
-		this.maxseats = maxseats;
+		this.maximumSeats = maxseats;
 	}
 
 }

@@ -1,35 +1,34 @@
 package com.chainsys.ebus.service;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.chainsys.ebus.dao.FindBusDAO;
 import com.chainsys.ebus.dao.AvailableSeatsDAO;
-import com.chainsys.ebus.dao.BusDetailsDAO;
+import com.chainsys.ebus.dao.BusDAO;
 import com.chainsys.ebus.dao.PassengerInfoDAO;
 import com.chainsys.ebus.dao.PaymentDAO;
-import com.chainsys.ebus.dao.UserAccountDetailsDAO;
+import com.chainsys.ebus.dao.UserAccountDAO;
 import com.chainsys.ebus.dao.impl.FindBusDAOImpl;
 import com.chainsys.ebus.dao.impl.AvailableSeatsDAOImpl;
-import com.chainsys.ebus.dao.impl.BusDetailsDAOImpl;
+import com.chainsys.ebus.dao.impl.BusDAOImpl;
 import com.chainsys.ebus.dao.impl.PassengerInfoDAOImpl;
 import com.chainsys.ebus.dao.impl.PaymentDAOImpl;
-import com.chainsys.ebus.dao.impl.UserAccountDetailsDAOImpl;
+import com.chainsys.ebus.dao.impl.UserAccountDAOImpl;
 import com.chainsys.ebus.exception.DbException;
 import com.chainsys.ebus.exception.InfoMessages;
 import com.chainsys.ebus.exception.ServiceException;
 import com.chainsys.ebus.model.FindBus;
 import com.chainsys.ebus.model.PassengerInfo;
-import com.chainsys.ebus.model.UserAccountDetails;
+import com.chainsys.ebus.model.UserAccount;
 
 public class UserService {
 	private AvailableSeatsDAO a = new AvailableSeatsDAOImpl();
-	private BusDetailsDAO b = new BusDetailsDAOImpl();
+	private BusDAO b = new BusDAOImpl();
 	private FindBusDAO d = new FindBusDAOImpl();
 	private PassengerInfoDAO e = new PassengerInfoDAOImpl();
 	private PaymentDAO f = new PaymentDAOImpl();
-	private UserAccountDetailsDAO g = new UserAccountDetailsDAOImpl();
+	private UserAccountDAO g = new UserAccountDAOImpl();
 
 	public int seatsAvailble(int busid) throws ServiceException {
 
@@ -84,8 +83,8 @@ public class UserService {
 
 	}
 
-	public ArrayList<FindBus> searchBus(String a, String b, String c) throws ServiceException {
-		ArrayList<FindBus> buses = null;
+	public List<FindBus> searchBus(String a, String b, String c) throws ServiceException {
+		List<FindBus> buses = null;
 		try {
 			buses = d.searchBus(a, b, c);
 		} catch (DbException e) {
@@ -115,9 +114,9 @@ public class UserService {
 		return info;
 	}
 
-	public ArrayList<PassengerInfo> bookingDetails(int bookingId) throws ServiceException {
+	public List<PassengerInfo> bookingDetails(int bookingId) throws ServiceException {
 
-		ArrayList<PassengerInfo> info = null;
+		List<PassengerInfo> info = null;
 		try {
 			info = e.bookingDetails(bookingId);
 		} catch (DbException e) {
@@ -145,9 +144,9 @@ public class UserService {
 	}
 
 	public boolean validateBookingId(int bookingId) throws ServiceException {
-		boolean bo = false;
+		boolean b = false;
 		try {
-			bo = e.validateBookingId(bookingId);
+			b = e.validateBookingId(bookingId);
 		} catch (DbException e) {
 
 			e.printStackTrace();
@@ -157,15 +156,15 @@ public class UserService {
 			e.printStackTrace();
 			throw new ServiceException(e);
 		}
-		return bo;
+		return b;
 
 	}
 
 	public boolean validateBusId(int busId) throws ServiceException {
 
-		boolean bo1 = false;
+		boolean b = false;
 		try {
-			bo1 = e.validateBookingId(busId);
+			b = e.validateBookingId(busId);
 		} catch (DbException e) {
 			e.printStackTrace();
 			throw new ServiceException(InfoMessages.VALIDATEBUSID, e);
@@ -173,14 +172,14 @@ public class UserService {
 			e.printStackTrace();
 			throw new ServiceException(e);
 		}
-		return bo1;
+		return b;
 
 	}
 
 	public int totalPrice(int bookingId) throws ServiceException {
-		int tp = 0;
+		int t = 0;
 		try {
-			tp = e.totalPrice(bookingId);
+			t = e.totalPrice(bookingId);
 		} catch (DbException e) {
 
 			e.printStackTrace();
@@ -190,23 +189,23 @@ public class UserService {
 			e.printStackTrace();
 			throw new ServiceException(e);
 		}
-		return tp;
+		return t;
 	}
 
-	public ArrayList<PassengerInfo> myBookings(int userId) throws ServiceException {
-		ArrayList<PassengerInfo> pi = null;
+	public List<PassengerInfo> myBookings(int userId) throws ServiceException {
+		List<PassengerInfo> p = null;
 		try {
-			pi = e.myBookings(userId);
+			p = e.myBookings(userId);
 		} catch (DbException e) {
 
 			e.printStackTrace();
-			throw new ServiceException(InfoMessages. MYBOOKINGDETAILS, e);
+			throw new ServiceException(InfoMessages.MYBOOKINGDETAILS, e);
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 			throw new ServiceException(e);
 		}
-		return pi;
+		return p;
 	}
 
 	public void paymentSuccess(int bookingId) throws ServiceException {
@@ -250,90 +249,90 @@ public class UserService {
 
 	}
 
-	public int addUser(UserAccountDetails a) throws ServiceException {
-		int au = 0;
+	public int addUser(UserAccount a) throws ServiceException {
+		int add = 0;
 		try {
-			au = g.addUser(a);
+			add = g.addUser(a);
 		} catch (DbException e) {
-			
+
 			e.printStackTrace();
 			throw new ServiceException(InfoMessages.ADDUSER, e);
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 			throw new ServiceException(e);
-			
+
 		}
-		return au;
+		return add;
 
 	}
 
 	public boolean forgetPassword(int userid, String password) throws ServiceException {
-		boolean bo3=false;
+		boolean b = false;
 		try {
-			bo3 = g.forgetPassword(userid, password);
+			b = g.forgetPassword(userid, password);
 		} catch (DbException e) {
-			
+
 			e.printStackTrace();
 			throw new ServiceException(InfoMessages.FORGETPASSWORD, e);
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 			throw new ServiceException(e);
 		}
-		return bo3;
+		return b;
 	}
 
 	public boolean validateEmailId(String emailId) throws ServiceException {
-		boolean bo4=false;
+		boolean b = false;
 		try {
-			bo4 = g.validateEmailId(emailId);
+			b = g.validateEmailId(emailId);
 		} catch (DbException e) {
-			
+
 			e.printStackTrace();
 			throw new ServiceException(InfoMessages.VALIDATEEMAIL, e);
 		} catch (SQLException e) {
-		
+
 			e.printStackTrace();
 			throw new ServiceException(e);
 		}
-		return bo4;
+		return b;
 
 	}
 
 	public boolean validateLogin(int userId, String password) throws ServiceException {
 
-		boolean bo5=false;
+		boolean b = false;
 		try {
-			bo5 = g.validateLogin(userId, password);
+			b = g.validateLogin(userId, password);
 		} catch (DbException e) {
-		
+
 			e.printStackTrace();
 			throw new ServiceException(InfoMessages.VALIDATELOGIN, e);
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 			throw new ServiceException(e);
 		}
-		return bo5;
+		return b;
 
 	}
 
 	public boolean validateEmailIdWithUserId(String emailId, int userId) throws ServiceException {
 
-		boolean bo6=false;
+		boolean b = false;
 		try {
-			bo6 = g.validateEmailIdWithUserId(emailId, userId);
+			b = g.validateEmailIdWithUserId(emailId, userId);
 		} catch (DbException e) {
-		
+
 			e.printStackTrace();
 			throw new ServiceException(InfoMessages.VALIDATEEMAILWITHUSERID, e);
 		} catch (SQLException e) {
-		
+
 			e.printStackTrace();
 			throw new ServiceException(e);
 		}
-		return bo6;
+		return b;
 	}
 
 }

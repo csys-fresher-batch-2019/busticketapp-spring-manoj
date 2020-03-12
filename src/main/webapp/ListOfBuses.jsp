@@ -1,4 +1,5 @@
 <%@page import="com.chainsys.ebus.model.FindBus"%>
+<%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.chainsys.ebus.dao.impl.FindBusDAOImpl"%>
 <%@page import="com.chainsys.ebus.dao.FindBusDAO"%>
@@ -35,7 +36,7 @@ div.head {
 
 
 <%
-	ArrayList<FindBus> list = (ArrayList) request.getAttribute("list");
+	List<FindBus> list = (ArrayList) request.getAttribute("list");
 %> <%
  	int i = 1;
  	if (!list.isEmpty()) {

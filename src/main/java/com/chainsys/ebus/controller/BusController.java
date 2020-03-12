@@ -1,6 +1,7 @@
 package com.chainsys.ebus.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,17 +11,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chainsys.ebus.dao.FindBusDAO;
-import com.chainsys.ebus.dao.BusDetailsDAO;
+import com.chainsys.ebus.dao.BusDAO;
 import com.chainsys.ebus.dao.PassengerInfoDAO;
 import com.chainsys.ebus.dao.PaymentDAO;
-import com.chainsys.ebus.dao.UserAccountDetailsDAO;
+import com.chainsys.ebus.dao.UserAccountDAO;
 import com.chainsys.ebus.dao.impl.FindBusDAOImpl;
-import com.chainsys.ebus.dao.impl.BusDetailsDAOImpl;
+import com.chainsys.ebus.dao.impl.BusDAOImpl;
 import com.chainsys.ebus.dao.impl.PassengerInfoDAOImpl;
 import com.chainsys.ebus.dao.impl.PaymentDAOImpl;
-import com.chainsys.ebus.dao.impl.UserAccountDetailsDAOImpl;
+import com.chainsys.ebus.dao.impl.UserAccountDAOImpl;
 import com.chainsys.ebus.model.FindBus;
-import com.chainsys.ebus.model.BusDetails;
+import com.chainsys.ebus.model.Bus;
 import com.chainsys.ebus.model.PassengerInfo;
 
 
@@ -29,7 +30,7 @@ import com.chainsys.ebus.model.PassengerInfo;
 @RequestMapping("api")
 public class BusController {
 
-	BusDetailsDAO a = new BusDetailsDAOImpl();
+	BusDAO a = new BusDAOImpl();
 
 	@PostMapping("/addbuses")
 	public void addBus(@RequestParam("bus_id") Integer bid, @RequestParam("bus_name") String busname,
@@ -37,7 +38,7 @@ public class BusController {
 			@RequestParam("journey_date") String date, @RequestParam("ticket_price") Integer tprice,
 			@RequestParam("travelling_time") String travelTime, @RequestParam("maximun_seats") Integer maximumSeats,
 			@RequestParam("available_seats") Integer availableSeats) {
-		BusDetails b = new BusDetails();
+		Bus b = new Bus();
 
 		b.setBusId(bid);
 		b.setBusName(busname);
@@ -58,11 +59,11 @@ public class BusController {
 	}
 
 	@GetMapping("/searchbuses")
-	public ArrayList<FindBus> searchbus(@RequestParam("from_location") String fromLocation,
+	public List<FindBus> searchbus(@RequestParam("from_location") String fromLocation,
 			@RequestParam("to_location") String toLocation, @RequestParam("journey_date") String date) {
 
 		FindBusDAO dao = new FindBusDAOImpl();
-		ArrayList<FindBus> a = new ArrayList<FindBus>();
+		List<FindBus> a = new ArrayList<>();
 		try {
 			a = dao.searchBus(fromLocation, toLocation, date);
 
@@ -76,7 +77,7 @@ public class BusController {
 	
 	@PostMapping("/updateBusTimings")
 	public void updateBusTiming(@RequestParam("bus_id") Integer bid,@RequestParam("travelling_time") String travelTime) {
-		BusDetails b = new BusDetails();
+		Bus b = new Bus();
 		//busDetailsDAO a = new busDetailsDAOImpl();
 		b.setBusId(bid);
 		b.setTravellingTime(travelTime);
@@ -102,7 +103,7 @@ public class BusController {
 				}
 		 }
 	
-	UserAccountDetailsDAO dao= new UserAccountDetailsDAOImpl();
+	UserAccountDAO dao= new UserAccountDAOImpl();
 
 	
 	@GetMapping("/login")
@@ -151,9 +152,9 @@ public class BusController {
 }
 
 	@GetMapping("/myTickets")
-	public ArrayList<PassengerInfo> MyBookings(@RequestParam("userid") Integer userId){
+	public List<PassengerInfo> MyBookings(@RequestParam("userid") Integer userId){
 		
-		ArrayList<PassengerInfo> pi=new ArrayList<PassengerInfo>();
+		List<PassengerInfo> pi=new ArrayList<>();
 		try {
 			pi=p.myBookings(userId);
 		}

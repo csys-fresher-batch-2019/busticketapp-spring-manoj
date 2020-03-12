@@ -18,7 +18,7 @@ color:white;
 <div class="head"><br><center><h1 class ="name">eBus</h1></center><br></div>
 <body>
 <%
-int userid=(Integer)session.getAttribute("Logged_in_userid");
+int userid=(Integer)session.getAttribute("userid");
 %>
 <center><form action="resetPasswordServlet">
 <h2><center>User Id:<input type="number" name="userid" value="<%=userid %>"readonly/></center></h2>

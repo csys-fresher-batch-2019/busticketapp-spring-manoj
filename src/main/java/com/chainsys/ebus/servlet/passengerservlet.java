@@ -10,19 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.chainsys.ebus.dao.PassengerInfoDAO;
-import com.chainsys.ebus.dao.impl.PassengerInfoDAOImpl;
 import com.chainsys.ebus.model.PassengerInfo;
 import com.chainsys.ebus.service.UserService;
 
 @WebServlet("/passengerservlet")
 public class passengerservlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//passengerInfoDAO dao=new passengerInfoDAOImpl();
-		UserService service=new UserService();
-		PassengerInfo p=new PassengerInfo();
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// passengerInfoDAO dao=new passengerInfoDAOImpl();
+		UserService service = new UserService();
+		PassengerInfo p = new PassengerInfo();
 		String busid = request.getParameter("busid");
 		p.setBusId(Integer.parseInt(busid));
 		String userid = request.getParameter("userid");
@@ -36,23 +35,22 @@ public class passengerservlet extends HttpServlet {
 		String NoOfTickets = request.getParameter("noOfTickets");
 		p.setNoOfTickets(Integer.parseInt(NoOfTickets));
 		try {
-		int bookingId=service.insertPassengerInfo(p);
-		System.out.println(bookingId);
-		int totalprice=service.totalPrice(bookingId);
-		System.out.println(totalprice);
-		HttpSession session = request.getSession();
-		  session.setAttribute("BookingId", bookingId);
-		  HttpSession session1 = request.getSession();
-		  session1.setAttribute("totalPrice", totalprice);
-		  System.out.println("hello2");
-		RequestDispatcher dispatcher = request.getRequestDispatcher("paymentChoice.jsp");
-		dispatcher.forward(request, response);
+			int bookingId = service.insertPassengerInfo(p);
+			System.out.println(bookingId);
+			int totalprice = service.totalPrice(bookingId);
+			System.out.println(totalprice);
+			HttpSession session = request.getSession();
+			session.setAttribute("BookingId", bookingId);
+			HttpSession session1 = request.getSession();
+			session1.setAttribute("totalPrice", totalprice);
+			System.out.println("hello2");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("paymentChoice.jsp");
+			dispatcher.forward(request, response);
 
 		} catch (Exception e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
-
-}
+	}
 }
