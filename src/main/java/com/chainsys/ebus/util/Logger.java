@@ -1,4 +1,4 @@
-package com.chainsys.ebus.logger;
+package com.chainsys.ebus.util;
 
 public class Logger {
 	public static Logger getInstance() {

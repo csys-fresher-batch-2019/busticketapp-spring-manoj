@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.chainsys.ebus.dao.userAccountDetailsDAO;
-import com.chainsys.ebus.dao.impl.userAccountDetailsDAOImpl;
-import com.chainsys.ebus.model.userAccountDetails;
-import com.chainsys.ebus.service.userService;
+import com.chainsys.ebus.dao.UserAccountDetailsDAO;
+import com.chainsys.ebus.dao.impl.UserAccountDetailsDAOImpl;
+import com.chainsys.ebus.model.UserAccountDetails;
+import com.chainsys.ebus.service.UserService;
 
 
 
@@ -25,8 +25,8 @@ public class registrationservlet extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//userAccountDetailsDAO dao=new userAccountDetailsDAOImpl();
-		userService service=new userService();
-		userAccountDetails p=new userAccountDetails();
+		UserService service=new UserService();
+		UserAccountDetails p=new UserAccountDetails();
 		p.setUserName(request.getParameter("username"));
 		p.setPassword(request.getParameter("password"));
 		p.setGender(request.getParameter("Gender"));
@@ -38,7 +38,7 @@ public class registrationservlet extends HttpServlet {
 		boolean result=false;
 		
 		try {
-			result=service.checkEmailId(p.getEmailId());
+			result=service.validateEmailId(p.getEmailId());
 		if(result==true)	{
 		
 		int userId=service.addUser(p);

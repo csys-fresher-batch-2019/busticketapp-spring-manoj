@@ -10,26 +10,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chainsys.ebus.dao.FindBusDAO;
-import com.chainsys.ebus.dao.busDetailsDAO;
-import com.chainsys.ebus.dao.passengerInfoDAO;
-import com.chainsys.ebus.dao.paymentDAO;
-import com.chainsys.ebus.dao.userAccountDetailsDAO;
+import com.chainsys.ebus.dao.BusDetailsDAO;
+import com.chainsys.ebus.dao.PassengerInfoDAO;
+import com.chainsys.ebus.dao.PaymentDAO;
+import com.chainsys.ebus.dao.UserAccountDetailsDAO;
 import com.chainsys.ebus.dao.impl.FindBusDAOImpl;
-import com.chainsys.ebus.dao.impl.busDetailsDAOImpl;
-import com.chainsys.ebus.dao.impl.passengerInfoDAOImpl;
-import com.chainsys.ebus.dao.impl.paymentDAOImpl;
-import com.chainsys.ebus.dao.impl.userAccountDetailsDAOImpl;
+import com.chainsys.ebus.dao.impl.BusDetailsDAOImpl;
+import com.chainsys.ebus.dao.impl.PassengerInfoDAOImpl;
+import com.chainsys.ebus.dao.impl.PaymentDAOImpl;
+import com.chainsys.ebus.dao.impl.UserAccountDetailsDAOImpl;
 import com.chainsys.ebus.model.FindBus;
-import com.chainsys.ebus.model.busDetails;
-import com.chainsys.ebus.model.passengerInfo;
+import com.chainsys.ebus.model.BusDetails;
+import com.chainsys.ebus.model.PassengerInfo;
 
 
 @CrossOrigin(origins="*")
 @RestController
 @RequestMapping("api")
-public class busController {
+public class BusController {
 
-	busDetailsDAO a = new busDetailsDAOImpl();
+	BusDetailsDAO a = new BusDetailsDAOImpl();
 
 	@PostMapping("/addbuses")
 	public void addBus(@RequestParam("bus_id") Integer bid, @RequestParam("bus_name") String busname,
@@ -37,7 +37,7 @@ public class busController {
 			@RequestParam("journey_date") String date, @RequestParam("ticket_price") Integer tprice,
 			@RequestParam("travelling_time") String travelTime, @RequestParam("maximun_seats") Integer maximumSeats,
 			@RequestParam("available_seats") Integer availableSeats) {
-		busDetails b = new busDetails();
+		BusDetails b = new BusDetails();
 
 		b.setBusId(bid);
 		b.setBusName(busname);
@@ -64,7 +64,7 @@ public class busController {
 		FindBusDAO dao = new FindBusDAOImpl();
 		ArrayList<FindBus> a = new ArrayList<FindBus>();
 		try {
-			a = dao.searchbus(fromLocation, toLocation, date);
+			a = dao.searchBus(fromLocation, toLocation, date);
 
 		} catch (Exception e) {
 
@@ -76,7 +76,7 @@ public class busController {
 	
 	@PostMapping("/updateBusTimings")
 	public void updateBusTiming(@RequestParam("bus_id") Integer bid,@RequestParam("travelling_time") String travelTime) {
-		busDetails b = new busDetails();
+		BusDetails b = new BusDetails();
 		//busDetailsDAO a = new busDetailsDAOImpl();
 		b.setBusId(bid);
 		b.setTravellingTime(travelTime);
@@ -102,7 +102,7 @@ public class busController {
 				}
 		 }
 	
-	userAccountDetailsDAO dao= new userAccountDetailsDAOImpl();
+	UserAccountDetailsDAO dao= new UserAccountDetailsDAOImpl();
 
 	
 	@GetMapping("/login")
@@ -110,7 +110,7 @@ public class busController {
 		boolean res=false;
 		try {
 			
-			 res=dao.validateLogin2(userId, password);
+			 res=dao.validateLogin(userId, password);
 		}
 		catch(Exception e)
 		{
@@ -119,11 +119,11 @@ public class busController {
 		return res;
 	}
 	
-	passengerInfoDAO p=new passengerInfoDAOImpl();
+	PassengerInfoDAO p=new PassengerInfoDAOImpl();
 	@PostMapping("/passengerDetails")
 	public int insertPassengerInfo(@RequestParam("busid") Integer bid,@RequestParam("userid") Integer userid, @RequestParam("passengername") String passengerName,
 			@RequestParam("age") Integer age,@RequestParam("gender") String gender,@RequestParam("mobileNumber") Long mobNum,@RequestParam("noOfTickets") Integer noOfTickets) {
-		passengerInfo i=new passengerInfo();
+		PassengerInfo i=new PassengerInfo();
 		i.setBusId(bid);
 		i.setUserId(userid);
 		i.setPassengerName(passengerName);
@@ -151,11 +151,11 @@ public class busController {
 }
 
 	@GetMapping("/myTickets")
-	public ArrayList<passengerInfo> MyBookings(@RequestParam("userid") Integer userId){
+	public ArrayList<PassengerInfo> MyBookings(@RequestParam("userid") Integer userId){
 		
-		ArrayList<passengerInfo> pi=new ArrayList<passengerInfo>();
+		ArrayList<PassengerInfo> pi=new ArrayList<PassengerInfo>();
 		try {
-			pi=p.MyBookings(userId);
+			pi=p.myBookings(userId);
 		}
 		catch(Exception e)
 		{
@@ -165,12 +165,12 @@ public class busController {
 	 
 	
 }
-	paymentDAO dao1=new paymentDAOImpl();
+	PaymentDAO dao1=new PaymentDAOImpl();
 	@PostMapping("/cashpay")
 	public boolean cashPay(@RequestParam("bookingid") Integer bookingId){
 		
 		try {
-			dao1.cashPay(bookingId);
+			dao1.cashPayment(bookingId);
 			
 		}
 		catch(Exception e)

@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.ebus.dao.busDetailsDAO;
-import com.chainsys.ebus.dao.impl.busDetailsDAOImpl;
-import com.chainsys.ebus.service.userService;
+import com.chainsys.ebus.dao.BusDetailsDAO;
+import com.chainsys.ebus.dao.impl.BusDetailsDAOImpl;
+import com.chainsys.ebus.service.UserService;
 
 @WebServlet("/toLocation")
 public class toLocation extends HttpServlet {
@@ -21,7 +21,7 @@ public class toLocation extends HttpServlet {
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//busDetailsDAO dao= new busDetailsDAOImpl();
-		userService service=new userService();
+		UserService service=new UserService();
 		 try {
 			List<String> toLocation=service.getToLocation();
 		} catch (Exception e) {

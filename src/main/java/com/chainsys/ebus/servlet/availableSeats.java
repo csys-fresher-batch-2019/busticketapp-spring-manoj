@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.chainsys.ebus.dao.FindBusDAO;
-import com.chainsys.ebus.dao.availableSeatsDAO;
-import com.chainsys.ebus.dao.passengerInfoDAO;
+import com.chainsys.ebus.dao.AvailableSeatsDAO;
+import com.chainsys.ebus.dao.PassengerInfoDAO;
 import com.chainsys.ebus.dao.impl.FindBusDAOImpl;
-import com.chainsys.ebus.dao.impl.availableSeatsDAOImpl;
-import com.chainsys.ebus.dao.impl.passengerInfoDAOImpl;
+import com.chainsys.ebus.dao.impl.AvailableSeatsDAOImpl;
+import com.chainsys.ebus.dao.impl.PassengerInfoDAOImpl;
 import com.chainsys.ebus.model.FindBus;
-import com.chainsys.ebus.model.passengerInfo;
-import com.chainsys.ebus.service.userService;
+import com.chainsys.ebus.model.PassengerInfo;
+import com.chainsys.ebus.service.UserService;
 
 @WebServlet("/availableSeats")
 public class availableSeats extends HttpServlet {
@@ -29,12 +29,12 @@ public class availableSeats extends HttpServlet {
 			throws ServletException, IOException {
 
 		//availableSeatsDAO dao=new availableSeatsDAOImpl();
-		userService service=new userService();
+		UserService service=new UserService();
 		 String bid=request.getParameter("busId");
 	      int busid=Integer.parseInt(bid);
 			
 		try {
-			int availableseats=service.seatavail(busid);
+			int availableseats=service.seatsAvailble(busid);
 			
 			request.setAttribute("seats",availableseats);
 		

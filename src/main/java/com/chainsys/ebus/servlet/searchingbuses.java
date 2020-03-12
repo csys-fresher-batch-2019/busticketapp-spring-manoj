@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.chainsys.ebus.dao.FindBusDAO;
 import com.chainsys.ebus.dao.impl.FindBusDAOImpl;
 import com.chainsys.ebus.model.FindBus;
-import com.chainsys.ebus.service.userService;
+import com.chainsys.ebus.service.UserService;
 
 @WebServlet("/searchingbuses")
 public class searchingbuses extends HttpServlet {
@@ -24,13 +24,13 @@ public class searchingbuses extends HttpServlet {
 			throws ServletException, IOException {
 
 		//FindBusDAO dao1 = new FindBusDAOImpl();
-		userService service=new userService();
+		UserService service=new UserService();
 		String fromLocation = request.getParameter("from_location");
 		String toLocation = request.getParameter("to_location");
 		String journeyDate = request.getParameter("journey_date");
 		// FindBusDAO dao1 = new FindBusDAOImpl();
 		try {
-			ArrayList<FindBus> list = service.searchbus(fromLocation, toLocation, journeyDate);
+			ArrayList<FindBus> list = service.searchBus(fromLocation, toLocation, journeyDate);
 			System.out.println(list);
 			request.setAttribute("list",list);
 		

@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.ebus.dao.paymentDAO;
-import com.chainsys.ebus.dao.impl.paymentDAOImpl;
-import com.chainsys.ebus.service.userService;
+import com.chainsys.ebus.dao.PaymentDAO;
+import com.chainsys.ebus.dao.impl.PaymentDAOImpl;
+import com.chainsys.ebus.service.UserService;
 
 
 @WebServlet("/afterPaymentCard")
@@ -20,7 +20,7 @@ public class afterPaymentCard extends HttpServlet {
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//paymentDAO dao =  new paymentDAOImpl();
-		userService service=new userService();
+		UserService service=new UserService();
 		PrintWriter out=response.getWriter();
 		String Booking = request.getParameter("bookingId");
 		int bookingId = Integer.parseInt(Booking);

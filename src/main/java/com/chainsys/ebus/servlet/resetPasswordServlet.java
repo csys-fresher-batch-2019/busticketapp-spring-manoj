@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.ebus.dao.userAccountDetailsDAO;
-import com.chainsys.ebus.dao.impl.userAccountDetailsDAOImpl;
-import com.chainsys.ebus.service.userService;
+import com.chainsys.ebus.dao.UserAccountDetailsDAO;
+import com.chainsys.ebus.dao.impl.UserAccountDetailsDAOImpl;
+import com.chainsys.ebus.service.UserService;
 
 
 @WebServlet("/resetPasswordServlet")
@@ -21,7 +21,7 @@ public class resetPasswordServlet extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//userAccountDetailsDAO dao =new userAccountDetailsDAOImpl();
-		userService service=new userService();
+		UserService service=new UserService();
 		String userid=request.getParameter("userid");
 	      int userId=Integer.parseInt(userid);
 	   	String password = request.getParameter("password");

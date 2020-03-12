@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.chainsys.ebus.dao.userAccountDetailsDAO;
-import com.chainsys.ebus.dao.impl.userAccountDetailsDAOImpl;
-import com.chainsys.ebus.service.userService;
+import com.chainsys.ebus.dao.UserAccountDetailsDAO;
+import com.chainsys.ebus.dao.impl.UserAccountDetailsDAOImpl;
+import com.chainsys.ebus.service.UserService;
 
 
 @WebServlet("/forgetPasswordServlet")
@@ -22,13 +22,13 @@ public class forgetPasswordServlet extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// userAccountDetailsDAO dao =new userAccountDetailsDAOImpl();
-		userService service=new userService();
+		UserService service=new UserService();
 		String userid=request.getParameter("userid");
 	      int userId=Integer.parseInt(userid);
 	   	String mailId = request.getParameter("mailid");
 	    boolean result=false;
 	   try { 
-	    result= service.checkEmailId2(mailId,userId);
+	    result= service.validateEmailIdWithUserId(mailId,userId);
 	    if(result==true)
 	    {
 	    	 RequestDispatcher dispatcher = request.getRequestDispatcher("resetpassword.jsp");

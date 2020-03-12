@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.chainsys.ebus.dao.userAccountDetailsDAO;
-import com.chainsys.ebus.dao.impl.userAccountDetailsDAOImpl;
-import com.chainsys.ebus.service.userService;
+import com.chainsys.ebus.dao.UserAccountDetailsDAO;
+import com.chainsys.ebus.dao.impl.UserAccountDetailsDAOImpl;
+import com.chainsys.ebus.service.UserService;
 
 @WebServlet("/loginServlet")
 public class loginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
      // userAccountDetailsDAO dao =new userAccountDetailsDAOImpl();
-    	   userService service=new userService();
+    	   UserService service=new UserService();
       String userid=request.getParameter("userid");
       int userId=Integer.parseInt(userid);
       boolean result=false;
@@ -28,7 +28,7 @@ public class loginServlet extends HttpServlet {
      	String password = request.getParameter("password");
      	
      	try {
-     	result=service.validateLogin2(userId, password);
+     	result=service.validateLogin(userId, password);
      	
     	
      	if(result==true) {

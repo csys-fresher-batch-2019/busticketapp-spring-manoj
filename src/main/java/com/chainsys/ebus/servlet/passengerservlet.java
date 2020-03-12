@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.chainsys.ebus.dao.passengerInfoDAO;
-import com.chainsys.ebus.dao.impl.passengerInfoDAOImpl;
-import com.chainsys.ebus.model.passengerInfo;
-import com.chainsys.ebus.service.userService;
+import com.chainsys.ebus.dao.PassengerInfoDAO;
+import com.chainsys.ebus.dao.impl.PassengerInfoDAOImpl;
+import com.chainsys.ebus.model.PassengerInfo;
+import com.chainsys.ebus.service.UserService;
 
 @WebServlet("/passengerservlet")
 public class passengerservlet extends HttpServlet {
@@ -21,8 +21,8 @@ public class passengerservlet extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//passengerInfoDAO dao=new passengerInfoDAOImpl();
-		userService service=new userService();
-		passengerInfo p=new passengerInfo();
+		UserService service=new UserService();
+		PassengerInfo p=new PassengerInfo();
 		String busid = request.getParameter("busid");
 		p.setBusId(Integer.parseInt(busid));
 		String userid = request.getParameter("userid");

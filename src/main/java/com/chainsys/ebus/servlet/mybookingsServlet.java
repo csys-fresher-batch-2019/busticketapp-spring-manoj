@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.chainsys.ebus.dao.FindBusDAO;
-import com.chainsys.ebus.dao.passengerInfoDAO;
+import com.chainsys.ebus.dao.PassengerInfoDAO;
 import com.chainsys.ebus.dao.impl.FindBusDAOImpl;
-import com.chainsys.ebus.dao.impl.passengerInfoDAOImpl;
+import com.chainsys.ebus.dao.impl.PassengerInfoDAOImpl;
 import com.chainsys.ebus.model.FindBus;
-import com.chainsys.ebus.model.passengerInfo;
-import com.chainsys.ebus.service.userService;
+import com.chainsys.ebus.model.PassengerInfo;
+import com.chainsys.ebus.service.UserService;
 
 @WebServlet("/mybookingsServlet")
 public class mybookingsServlet extends HttpServlet {
@@ -27,12 +27,12 @@ public class mybookingsServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		//passengerInfoDAO dao = new passengerInfoDAOImpl();
-		userService service=new userService();
+		UserService service=new UserService();
 		 String userid=request.getParameter("UserId");
 	      int userId=Integer.parseInt(userid);
 		
 		try {
-			ArrayList<passengerInfo> info = service.MyBookings(userId);
+			ArrayList<PassengerInfo> info = service.myBookings(userId);
 			
 			request.setAttribute("info",info);
 		

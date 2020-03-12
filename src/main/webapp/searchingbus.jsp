@@ -1,6 +1,6 @@
 <%@page import="java.util.List"%>
-<%@page import="com.chainsys.ebus.dao.impl.busDetailsDAOImpl"%>
-<%@page import="com.chainsys.ebus.dao.busDetailsDAO"%>
+<%@page import="com.chainsys.ebus.dao.impl.BusDetailsDAOImpl"%>
+<%@page import="com.chainsys.ebus.dao.BusDetailsDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>

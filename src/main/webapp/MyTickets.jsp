@@ -1,7 +1,7 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.chainsys.ebus.dao.impl.passengerInfoDAOImpl"%>
-<%@page import="com.chainsys.ebus.dao.passengerInfoDAO"%>
-<%@page import="com.chainsys.ebus.model.passengerInfo"%>
+<%@page import="com.chainsys.ebus.dao.impl.PassengerInfoDAOImpl"%>
+<%@page import="com.chainsys.ebus.dao.PassengerInfoDAO"%>
+<%@page import="com.chainsys.ebus.model.PassengerInfo"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 	 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -24,7 +24,7 @@ color:white;
 <body >
 
 	<%
-	ArrayList<passengerInfo> info = (ArrayList) request.getAttribute("info");
+		ArrayList<PassengerInfo> info = (ArrayList) request.getAttribute("info");
 	%>
 	<br>
 	<br>
