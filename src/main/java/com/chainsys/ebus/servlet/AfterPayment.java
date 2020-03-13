@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.chainsys.ebus.service.UserService;
 
-@WebServlet("/afterPaymentCard")
-public class afterPaymentCard extends HttpServlet {
+@WebServlet("/afterPayment")
+public class AfterPayment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -21,10 +21,11 @@ public class afterPaymentCard extends HttpServlet {
 
 		String Booking = request.getParameter("bookingId");
 		int bookingId = Integer.parseInt(Booking);
-		// out.println("bookingId");
+
 		System.out.println(bookingId);
+
 		try {
-			service.paymentSuccess(bookingId);
+			service.cashPayment(bookingId);
 			response.sendRedirect("lastpage.jsp");
 
 		} catch (Exception e) {

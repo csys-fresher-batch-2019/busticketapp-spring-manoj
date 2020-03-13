@@ -1,7 +1,7 @@
 package com.chainsys.ebus.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,7 +15,7 @@ import com.chainsys.ebus.model.UserAccount;
 import com.chainsys.ebus.service.UserService;
 
 @WebServlet("/registrationservlet")
-public class registrationservlet extends HttpServlet {
+public class RegistrationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

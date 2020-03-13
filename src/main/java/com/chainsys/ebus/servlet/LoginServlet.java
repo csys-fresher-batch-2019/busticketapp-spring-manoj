@@ -12,38 +12,40 @@ import javax.servlet.http.HttpSession;
 
 import com.chainsys.ebus.service.UserService;
 
-@WebServlet("/forgetPasswordServlet")
-public class forgetPasswordServlet extends HttpServlet {
+@WebServlet("/loginServlet")
+public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// userAccountDetailsDAO dao =new userAccountDetailsDAOImpl();
+	
 		UserService service = new UserService();
 		String userid = request.getParameter("userid");
 		int userId = Integer.parseInt(userid);
-		String mailId = request.getParameter("mailid");
 		boolean result = false;
+
+		String password = request.getParameter("password");
+
 		try {
-			result = service.validateEmailIdWithUserId(mailId, userId);
-			System.out.println(result);
-			if (result) {
+			result = service.validateLogin(userId, password);
+
+			if (result == true) {
+
 				HttpSession session = request.getSession();
-				session.setAttribute("userid", userId);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("resetpassword.jsp");
+				session.setAttribute("Logged_in_userid", userId);
+
+				RequestDispatcher dispatcher = request.getRequestDispatcher("choice.jsp");
 				dispatcher.forward(request, response);
-			
-
 			} else {
-
-				String result1 = "Invalid UserId / emailId";
-				response.sendRedirect("forgetPassword.jsp?res=" + result1);
+				String result1 = "Invalid UserId / Password";
+				response.sendRedirect("login.jsp?res=" + result1);
 
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 
 	}
+
 }

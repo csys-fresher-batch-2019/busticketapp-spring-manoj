@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.chainsys.ebus.service.UserService;
 
 @WebServlet("/resetPasswordServlet")
-public class resetPasswordServlet extends HttpServlet {
+public class ResetPasswordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// userAccountDetailsDAO dao =new userAccountDetailsDAOImpl();
+	
 		UserService service = new UserService();
 		String userid = request.getParameter("userid");
 		int userId = Integer.parseInt(userid);

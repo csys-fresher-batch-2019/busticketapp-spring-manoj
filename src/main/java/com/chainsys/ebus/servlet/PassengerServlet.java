@@ -14,12 +14,12 @@ import com.chainsys.ebus.model.PassengerInfo;
 import com.chainsys.ebus.service.UserService;
 
 @WebServlet("/passengerservlet")
-public class passengerservlet extends HttpServlet {
+public class PassengerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// passengerInfoDAO dao=new passengerInfoDAOImpl();
+		
 		UserService service = new UserService();
 		PassengerInfo p = new PassengerInfo();
 		String busid = request.getParameter("busid");
@@ -48,7 +48,7 @@ public class passengerservlet extends HttpServlet {
 			dispatcher.forward(request, response);
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 
