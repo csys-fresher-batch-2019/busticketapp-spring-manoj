@@ -23,6 +23,7 @@ import com.chainsys.ebus.dao.impl.UserAccountDAOImpl;
 import com.chainsys.ebus.model.FindBus;
 import com.chainsys.ebus.model.Bus;
 import com.chainsys.ebus.model.PassengerInfo;
+import com.chainsys.ebus.model.UserAccount;
 
 
 @CrossOrigin(origins="*")
@@ -167,6 +168,7 @@ public class BusController {
 	
 }
 	PaymentDAO dao1=new PaymentDAOImpl();
+	
 	@PostMapping("/cashpay")
 	public boolean cashPay(@RequestParam("bookingid") Integer bookingId){
 		
@@ -182,9 +184,37 @@ public class BusController {
 	
 return true;
 	}
+	
+	
+	@PostMapping("/registration")
+	
+	public  int addUser (@RequestParam("userName") String userName, @RequestParam("password") String password,
+			@RequestParam("gender") String gender, @RequestParam("DOB") String dob,
+			@RequestParam("contactNumber") Long contactNumber, @RequestParam("emailId") String emailId) 
+	{
+		UserAccount a=new UserAccount();
+		a.setUserName(userName);
+		a.setPassword(password);
+		a.setGender(gender);
+		a.setDob(dob);
+		a.setContactNumber(contactNumber);
+		a.setEmailId(emailId);
+		int userId=0;
+		try {
+			
+			userId=dao.addUser(a);
+			
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+	return userId;
+		
+	
 	} 
 
 
-	
+}
 	
 
